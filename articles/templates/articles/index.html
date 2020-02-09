@@ -1,0 +1,28 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+<h4>
+    ma liste d'articles
+</h4>
+<a href="{% url 'articles:create' %}"> Ajouter un article</a>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Date</th>
+            <th>Auteur</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for article in articles %}
+        <tr>
+            <td>{{article.id}}</td>
+            <td>{{article.titre}}</td>
+            <td>{{article.date_pub}}</td>
+            <td>{{article.auteur}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

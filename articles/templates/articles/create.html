@@ -1,0 +1,11 @@
+{% extends "layout/base.html" %}
+{% block content %}
+    <h2>Formulaire de création</h2>
+    <form action="{% url 'articles:create' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn light-green">Enregistrer</button>
+    </form>  
+{% endblock content %}
+     
+ 

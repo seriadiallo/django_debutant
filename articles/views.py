@@ -1,7 +1,48 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
+
+from .forms import ArticleForm
+from .models import Article
+
+def index(request):
+
+    template_name = 'articles/index.html'
+    ar = Article.objects.all()
+    context = {
+        'articles': ar
+    }
+    return render(request, template_name, context)
 
 
-def index(request, nom):
+def create(request):
 
-    return HttpResponse(f'Bonjour {nom}')
+    if request.method == "GET":
+        template_name = 'articles/create.html'
+        form = ArticleForm()
+        context = {
+            'form': form
+        }
+        return render(request, template_name, context)
 
+    elif request.method == 'POST':
+        form = ArticleForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("articles:index", permanent=True)
+        else:
+            context = {
+                'form': form
+            }
+            return render(request, template_name, context)
+
+def malist(request):
+
+    template_name = 'articles/list.html'
+    clients = [
+        {'nom': 'diallo', 'prenom': 'mamadou', 'age': 34, 'adresse': 'coyah'},
+        {'nom': 'sow', 'prenom': 'Oumarou', 'age': 34, 'adresse': 'coza'},
+        {'nom': 'Barry', 'prenom': 'Kadiatou', 'age': 24, 'adresse': 'Koloma'},
+        {'nom': 'diallo', 'prenom': 'Mariame', 'age': 21, 'adresse': 'Bambeto'},
+    ]
+    context = {'clients': clients}
+
+    return render(request, template_name, context)
