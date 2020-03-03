@@ -34,6 +34,16 @@ def create(request):
             }
             return render(request, template_name, context)
 
+
+def detail(request, id):
+
+    article = Article.objects.get(id=id)
+    context = {
+        'article': article
+    }
+    template_name = 'articles/detail.html'
+    return render(request, template_name, context)
+
 def malist(request):
 
     template_name = 'articles/list.html'

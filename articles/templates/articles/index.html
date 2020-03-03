@@ -4,7 +4,7 @@
 <h4>
     ma liste d'articles
 </h4>
-<a href="{% url 'articles:create' %}"> Ajouter un article</a>
+<a class="btn teal darken-1" href="{% url 'articles:create' %}"> Ajouter un article</a>
 <table>
     <thead>
         <tr>
@@ -12,6 +12,7 @@
             <th>Titre</th>
             <th>Date</th>
             <th>Auteur</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +22,9 @@
             <td>{{article.titre}}</td>
             <td>{{article.date_pub}}</td>
             <td>{{article.auteur}}</td>
+            <td>
+                <a class="btn teal darken-1" href="{% url 'articles:detail' article.id %}">Detail</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
