@@ -56,3 +56,11 @@ def malist(request):
     context = {'clients': clients}
 
     return render(request, template_name, context)
+
+
+
+def home(request):
+    context = {}
+    template_name = 'articles/home.html'
+
+    return render(request, template_name, context)
