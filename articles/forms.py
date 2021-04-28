@@ -4,10 +4,9 @@ from .models import Article
 
 class ArticleForm(forms.ModelForm):
 
-    # titre = forms.CharField(max_length=30)
-    # description = forms.CharField(widget=forms.Textarea(attrs={'rows': 10, "cols": 20}))
-    # date_pub = forms.DateField()
-    # auteur = forms.CharField(max_length=50)
+    # Personnaliser les champs 'description' et 'date_pub'
+    description = forms.CharField(widget=forms.TextInput(attrs={'rows': 100, "cols": 20, 'class': 'materialize-textarea'}))
+    date_pub = forms.DateField(widget=forms.DateInput(attrs={'class': 'datepicker', 'type': 'text'}))
 
     class Meta:
 
