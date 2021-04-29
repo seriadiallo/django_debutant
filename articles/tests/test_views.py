@@ -52,4 +52,33 @@ class TestView(TestCase):
     def test_article_malist_GET(self):
         response = self.client.get(reverse('articles:list'))
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'articles/list.html')   
+        self.assertTemplateUsed(response, 'articles/list.html')
+
+
+class ArticleDeleteTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.article = Article.objects.create(
+            titre='Article a supprimer',
+            description="la description de cet article qui va etre .....",
+            date_pub=timezone.now(),
+            auteur='Un mauvais auteur'
+        )
+        self.delet_url = reverse('articles:delete', kwargs={'id': self.article.id})
+    
+    def test_used_template(self):
+        response = self.client.get(self.delet_url)
+        self.assertTemplateUsed(response, template_name='articles/article_delete_confirm.html')
+    
+    def test_contains_csrf(self):
+        response = self.client.get(self.delet_url)
+        self.assertContains(response, 'csrfmiddlewaretoken')
+    
+    def test_article_delete_POST(self):
+        response = self.client.post(self.delet_url, {})
+        self.assertEquals(response.status_code, 302)
+    
+    def test_article_delete_not_found(self):
+        url = reverse('articles:delete', kwargs={'id': 456})
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 404)

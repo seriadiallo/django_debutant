@@ -15,12 +15,18 @@
               <span>{{ article.date_pub }}</span>
               <span>{{ article.auteur }}</span>
             </div>
-            <div class="col s4 m2">
+            <div class="col s4 m4">
               <a href="{% url 'articles:index' %}">Rétour</a>
+             
+                
+                <a href="{% url 'articles:delete' article.id %}" class="btn waves-effect waves-light red darken-2" name="action">
+                  Supprimer
+                </a>
+        
   
             </div>
           </div>
-          
+        
         </div>
       </div>
     </div>

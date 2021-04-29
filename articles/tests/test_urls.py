@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 
-from ..views import index, create, detail, home
+from ..views import ArticleDeleteView, index, create, detail, home
 
 
 class TestUrlsResolve(SimpleTestCase):
@@ -22,3 +22,8 @@ class TestUrlsResolve(SimpleTestCase):
     def test_home_article_resolve(self):
         url = reverse('home')
         self.assertEquals(resolve(url).func, home)
+
+
+    def test_delete_article_resolve(self):
+        url = reverse('articles:delete', kwargs={'id': 24})
+        self.assertEquals(resolve(url).func.view_class, ArticleDeleteView)
