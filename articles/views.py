@@ -15,8 +15,8 @@ def index(request):
 
 def create(request):
 
+    template_name = 'articles/create.html'
     if request.method == "GET":
-        template_name = 'articles/create.html'
         form = ArticleForm()
         context = {
             'form': form
